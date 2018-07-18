@@ -24,8 +24,7 @@ var sdpConstraints = {
 
 var room = 'foo';
 // Could prompt for room name:
-// room = prompt('Enter room name:');
-
+var user_type = prompt('Enter N nurse or P for patient:');
 
 var socket = io.connect();
 
@@ -71,10 +70,13 @@ socket.on('message', function(message) {
   if (message === 'got user media') {
     maybeStart();
   } else if (message.type === 'offer') {
+
+
     if (!isInitiator && !isStarted) {
       maybeStart();
     }
     pc.setRemoteDescription(new RTCSessionDescription(message));
+    console.log('ans1');
     doAnswer();
   } else if (message.type === 'answer' && isStarted) {
     pc.setRemoteDescription(new RTCSessionDescription(message));
@@ -134,6 +136,8 @@ playButton.addEventListener('click', () => {
   });
 });
 
+
+
 const downloadButton = document.querySelector('button#download');
 downloadButton.addEventListener('click', () => {
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
@@ -149,6 +153,27 @@ downloadButton.addEventListener('click', () => {
     window.URL.revokeObjectURL(url);
   }, 100);
 });
+
+
+const callButton = document.querySelector('button#call');
+callButton.addEventListener('click', () => {
+  callButton.disabled=true;
+  hangupButton.disabled=false;
+  sendMessage('got user media');
+  if (isInitiator) {
+  maybeStart();
+  }
+});
+
+const hangupButton = document.querySelector('button#hangup');
+hangupButton.addEventListener('click', () => {
+  hangupButton.disabled=true;
+  stop();
+});
+
+if(user_type==='P') {
+callButton.disabled = true;
+}
 
 function handleDataAvailable(event) {
   if (event.data && event.data.size > 0) {
@@ -221,10 +246,12 @@ function gotStream(stream) {
   console.log('Adding local stream.');
   localStream = stream;
   localVideo.srcObject = stream;
-  sendMessage('got user media');
-  if (isInitiator) {
-    maybeStart();
-  }
+  //sendMessage('got user media');
+  //if (user_type === 'P') {
+  //  if (isInitiator) {
+  //    maybeStart();
+  //  }
+  //}
 }
 
 var constraints = {
@@ -246,8 +273,8 @@ function maybeStart() {
     createPeerConnection();
     pc.addStream(localStream);
     isStarted = true;
-    console.log('isInitiator', isInitiator);
-    if (isInitiator) {
+    console.log('isInitiator user_type', isInitiator, user_type);
+    if (isInitiator ){//|| user_type==='P' ) {
       doCall();
     }
   }

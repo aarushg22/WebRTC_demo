@@ -14,13 +14,22 @@
   <h2>WebRTC Demo</h2>
 
   <div id="videos">
-    <p>Nurse Console</p>
-    <video id="localVideo" autoplay muted></video>
-    <p>Patient Bed #XX</p>
-    <video id="remoteVideo" autoplay></video>
+    <div class="videoContainer">
+     <h3>Nurse Console</h3>
+     <video id="localVideo" autoplay muted></video>
+   </div>
+   <div class="videoContainer">
+     <h3>Patient Bed #XX</h3>
+     <video id="remoteVideo" autoplay></video>
+   </div>
+ </div>
+
+  <div id="buttons">
+
+      <button id="call">Call</button>
+      <button id="hangup" disabled>Hang Up</button>
+
   </div>
-
-
 
   <div id="container">
       <h3><span>MediaRecorder</span></h3>

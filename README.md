@@ -2,15 +2,13 @@
 
 #### Pre-requisite
 
-You can download and install Node.js from [https://nodejs.org/en/download/](this link) or via your preffered package manager.
+You can download and install Node.js from [this link](https://nodejs.org/en/download/) or via your preffered package manager.
 
-This code has been extracted from the google codelabs tutorial which can be found [https://codelabs.developers.google.com/codelabs/webrtc-web/#0](here)
+This code has been extracted from the google codelabs tutorial which can be found [here](https://codelabs.developers.google.com/codelabs/webrtc-web/#0)
 
-The code for recording has been taking from the webrtc samples [https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/record](here)
+The code for recording has been taking from the webrtc samples [here](https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/record)
 
 #### Running the Demo
-
-This is an app manifest that tells Node Package Manager (npm) what project dependencies to install.
 
 To install dependencies (such as /socket.io/socket.io.js), run the following from the command line terminal, in your work directory:
 
@@ -26,7 +24,6 @@ Open `localhost:8080` again, in a new tab or window. For a different PC on the s
 
 #### Recording
 
-The Start recording button will only be enabled once the browser recieves a remote Stream i.e. when both the parties have joined the room.
-To Start, stop, play and Download recording buttons are availaible on the simple HTML page.
+The Start recording button will only be enabled once the browser recieves a remote Stream i.e. when both the parties have joined the room. To Start, stop, play and Download recording, buttons are availaible on the simple HTML page.
 
 Note : You'll need to restart your Node.js server each time you close a client tab or window.

@@ -173,6 +173,17 @@ hangupButton.addEventListener('click', () => {
 
 if(user_type==='P') {
 callButton.disabled = true;
+document.getElementById("localConsole").innerHTML ="Patient Bed #X";
+document.getElementById("remoteConsole").innerHTML ="Nurse console";
+//localVideo.muted=true;
+//remoteVideo.muted=false;
+}
+else {
+  document.getElementById("localConsole").innerHTML ="Nurse console";
+  document.getElementById("remoteConsole").innerHTML ="Patient Bed #X";
+  //localVideo.muted=true;
+  //remoteVideo.muted=true;
+
 }
 
 function handleDataAvailable(event) {
@@ -234,7 +245,7 @@ var localVideo = document.querySelector('#localVideo');
 var remoteVideo = document.querySelector('#remoteVideo');
 
 navigator.mediaDevices.getUserMedia({
-  audio: false,
+  audio: true,
   video: true
 })
 .then(gotStream)

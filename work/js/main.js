@@ -234,7 +234,7 @@ var localVideo = document.querySelector('#localVideo');
 var remoteVideo = document.querySelector('#remoteVideo');
 
 navigator.mediaDevices.getUserMedia({
-  audio: false,
+  audio: true,
   video: true
 })
 .then(gotStream)
@@ -380,10 +380,10 @@ function handleRemoteStreamAdded(event) {
   remoteStream = event.stream;
   recordButton.disabled = false;
   if (user_type === 'P') {
-    remoteVideo.srcObject = remoteStream;
+    localVideo.srcObject = remoteStream;
   }
   else {
-    localVideo.srcObject = remoteStream;
+    remoteVideo.srcObject = remoteStream;
   }
   //remoteVideo.srcObject = remoteStream;
 

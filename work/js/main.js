@@ -168,6 +168,7 @@ callButton.addEventListener('click', () => {
 const hangupButton = document.querySelector('button#hangup');
 hangupButton.addEventListener('click', () => {
   hangupButton.disabled=true;
+  recordButton.disabled=true;
   stop();
 });
 

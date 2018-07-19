@@ -245,7 +245,12 @@ navigator.mediaDevices.getUserMedia({
 function gotStream(stream) {
   console.log('Adding local stream.');
   localStream = stream;
-  localVideo.srcObject = stream;
+  if (user_type === 'P') {
+    remoteVideo.srcObject = stream;
+  }
+  else {
+    localVideo.srcObject = stream;
+  }
   //sendMessage('got user media');
   //if (user_type === 'P') {
   //  if (isInitiator) {
@@ -374,7 +379,13 @@ function handleRemoteStreamAdded(event) {
   console.log('Remote stream added.');
   remoteStream = event.stream;
   recordButton.disabled = false;
-  remoteVideo.srcObject = remoteStream;
+  if (user_type === 'P') {
+    remoteVideo.srcObject = remoteStream;
+  }
+  else {
+    localVideo.srcObject = remoteStream;
+  }
+  //remoteVideo.srcObject = remoteStream;
 
 }
 

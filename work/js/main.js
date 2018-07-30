@@ -1,5 +1,6 @@
 'use strict';
 
+
 var isChannelReady = false;
 var isInitiator = false;
 var isStarted = false;
@@ -19,6 +20,44 @@ var sdpConstraints = {
   offerToReceiveAudio: true,
   offerToReceiveVideo: true
 };
+
+//////////////////////ROS code///////////////
+
+var ros = new ROSLIB.Ros({
+    url : 'ws://localhost:9090'
+});
+
+ros.on('connection', function() {
+console.log('Connected to websocket server.');
+});
+
+ros.on('error', function(error) {
+console.log('Error connecting to websocket server: ', error);
+});
+
+ros.on('close', function() {
+console.log('Connection to websocket server closed.');
+});
+
+// Publishing a Topic
+// ------------------
+
+var activate_msg = new ROSLIB.Topic({
+  ros : ros,
+  name : '/activate_status',
+  messageType : 'std_msgs/String'
+});
+
+var activation_status_on = new ROSLIB.Message({
+data : "on"
+});
+
+var activation_status_off = new ROSLIB.Message({
+data : "off"
+});
+
+//////////////////////ROS code finish////////
+
 
 /////////////////////////////////////////////
 
@@ -171,6 +210,35 @@ hangupButton.addEventListener('click', () => {
   stop();
 });
 
+const activateButton = document.querySelector('button#activate');
+activateButton.addEventListener('click', () => {
+  activateButton.disabled=true;
+  console.log("Publishing ros msg "+ activate_msg.name + ': ' + activation_status_on.data);
+  activate_msg.publish(activation_status_on);
+});
+
+//const patientstatusButton = document.querySelector('button#patientstatus');
+//patientstatusButton.addEventListener('click', () => {
+//  activateButton.disabled=false;
+  //patientstatusButton.disabled=true;
+  //activateButton.value="Deactivate";
+//  console.log("Publishing ros msg "+ activate_msg.name + ': ' + activation_status_on.data);
+//  activate_msg.publish(activation_status_off);
+//});
+
+
+
+
+// Then we add a callback to be called every time a message is published on this topic.
+activate_msg.subscribe(function(message) {
+  if(user_type==='N') {
+  console.log('Received message on ' + activate_msg.name + ': ' + message.data);
+  callButton.disabled = false;
+  document.getElementById('patientstatus').innerHTML="Patient #XX status : Active";
+  }
+});
+
+
 if(user_type==='P') {
 callButton.disabled = true;
 document.getElementById("localConsole").innerHTML ="Patient Bed #X";
@@ -181,6 +249,7 @@ document.getElementById("remoteConsole").innerHTML ="Nurse console";
 else {
   document.getElementById("localConsole").innerHTML ="Nurse console";
   document.getElementById("remoteConsole").innerHTML ="Patient Bed #X";
+  document.getElementById('patientstatus').innerHTML="Patient #XX status : Active";
   //localVideo.muted=true;
   //remoteVideo.muted=true;
 

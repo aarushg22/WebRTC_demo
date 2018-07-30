@@ -4,7 +4,6 @@
 <head>
 
   <title>WebRTC Demo</title>
-
   <link rel="stylesheet" href="/css/main.css" />
 
 </head>
@@ -17,16 +16,18 @@
     <div class="videoContainer">
      <p id="localConsole"></p>
      <video id="localVideo" autoplay muted></video>
+     <p id="patientstatus"></p>
    </div>
    <div class="videoContainer">
      <p id="remoteConsole"></p>
      <video id="remoteVideo" autoplay></video>
+     <button id="activate">Activate</button>
    </div>
  </div>
 
   <div id="buttons">
 
-      <button id="call">Call</button>
+      <button id="call" disabled>Call</button>
       <button id="hangup" disabled>Hang Up</button>
 
   </div>
@@ -43,6 +44,8 @@
       </div>
   </div>
 
+  <script src="https://static.robotwebtools.org/roslibjs/current/roslib.js"></script>
+  <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   <script src="js/main.js"></script>

@@ -224,18 +224,6 @@ activateButton.addEventListener('click', () => {
 
 });
 
-//const patientstatusButton = document.querySelector('button#patientstatus');
-//patientstatusButton.addEventListener('click', () => {
-//  activateButton.disabled=false;
-  //patientstatusButton.disabled=true;
-  //activateButton.value="Deactivate";
-//  console.log("Publishing ros msg "+ activate_msg.name + ': ' + activation_status_on.data);
-//  activate_msg.publish(activation_status_off);
-//});
-
-
-
-
 // Then we add a callback to be called every time a message is published on this topic.
 activate_msg.subscribe(function(message) {
   if(user_type==='N') {

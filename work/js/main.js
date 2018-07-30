@@ -213,8 +213,15 @@ hangupButton.addEventListener('click', () => {
 const activateButton = document.querySelector('button#activate');
 activateButton.addEventListener('click', () => {
   activateButton.disabled=true;
-  console.log("Publishing ros msg "+ activate_msg.name + ': ' + activation_status_on.data);
-  activate_msg.publish(activation_status_on);
+  if(activateButton.innerText==="Activate"){
+    console.log("Publishing ros msg "+ activate_msg.name + ': ' + activation_status_on.data);
+    activate_msg.publish(activation_status_on);
+  }
+  else{
+    console.log("Publishing ros msg "+ activate_msg.name + ': ' + activation_status_off.data);
+    activate_msg.publish(activation_status_off);
+  }
+
 });
 
 //const patientstatusButton = document.querySelector('button#patientstatus');
@@ -232,24 +239,43 @@ activateButton.addEventListener('click', () => {
 // Then we add a callback to be called every time a message is published on this topic.
 activate_msg.subscribe(function(message) {
   if(user_type==='N') {
-  console.log('Received message on ' + activate_msg.name + ': ' + message.data);
-  callButton.disabled = false;
-  document.getElementById('patientstatus').innerHTML="Patient #XX status : Active";
+    console.log('Received message on ' + activate_msg.name + ': ' + message.data);
+    if(message.data==='on'){
+      callButton.disabled = false;
+      document.getElementById('patientstatus').innerHTML="Patient #XX status : Active";
+    }
+    else {
+      callButton.disabled = true;
+      document.getElementById('patientstatus').innerHTML="Patient #XX status : Inactive";
+    }
+  }
+  else{
+    activateButton.disabled=false;
+    if(message.data==='on'){
+      activateButton.innerText="Reset";
+    }
+    else {
+      activateButton.innerText="Activate";
+    }
+
   }
 });
 
 
 if(user_type==='P') {
 callButton.disabled = true;
+activateButton.disabled=false;
 document.getElementById("localConsole").innerHTML ="Patient Bed #X";
 document.getElementById("remoteConsole").innerHTML ="Nurse console";
 //localVideo.muted=true;
 //remoteVideo.muted=false;
 }
 else {
+  var a = document.getElementById('activate')
+  a.style.display = "none";
   document.getElementById("localConsole").innerHTML ="Nurse console";
   document.getElementById("remoteConsole").innerHTML ="Patient Bed #X";
-  document.getElementById('patientstatus').innerHTML="Patient #XX status : Active";
+  document.getElementById('patientstatus').innerHTML="Patient #XX status : Inactive";
   //localVideo.muted=true;
   //remoteVideo.muted=true;
 

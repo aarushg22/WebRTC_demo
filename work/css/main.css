@@ -15,3 +15,7 @@ video {
 #videos {
  display: flex;
 }
+
+#remoteVideo {
+ margin-right: 900px;
+}

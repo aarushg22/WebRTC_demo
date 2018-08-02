@@ -21,10 +21,16 @@ From the command line terminal, run the following command in the work directory:
 `node server/index.js`
 
 To publish ros messages via roslibjs we need to run rosbridge_server. You need to move the launch file from `work/other_files/rosbridge_websocket_secure.launch` to your rosbridge_server launch folder in your ROS ws.
-Then you can start `roscore` 
-and in a new terminal do:
+Then you need to modify lines 5 & 6 of the launch file :
+`
+<arg name="certfile" default="/home/m-a/WebRTC/WebRTC_demo/work/cert.pem"/>
+<arg name="keyfile" default="/home/m-a/WebRTC/WebRTC_demo/work/key.pem" />
+`
+I didn't find a way to have relative paths in roslaunch so for now we use absolute paths, you need to modify the paths to the cert.pem and key.pem files on your computer.
 
-`roslaunch rosbridge_server rosbridge_websocket.launch`
+Then you can start `roscore`  and in a new terminal do:
+
+`roslaunch rosbridge_server rosbridge_websocket_secure.launch`
 
 Note : The Activate message is published on the topic `/activate_status`.
 

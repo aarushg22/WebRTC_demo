@@ -26,6 +26,15 @@ You might (or might not) need to install dependencies (such as /socket.io/socket
 
 `npm install`
 
+You can simulate the physical button simply by publishing yourself on the call_button_state topic :
+
+`ros2 topic pub -1 /call_button_state std_msgs/String "data: bed_0_button True"`
+
+and
+
+`ros2 topic pub -1 /call_button_state std_msgs/String "data: bed_0_button False"`
+
+#### Note on https
 
 We now use https and secure websockets (wss) but since we are still on a local network, we can't get real certificates so we have to use self-made certificates. The problem is that browsers don't like self-made certificates so we'll get a warning when trying to connect. We need to add exceptions to be able to connect to the nodejs server.
 

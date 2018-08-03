@@ -9,19 +9,22 @@ var express = require('express');
 var app = express();  
 const path = require("path");
 
-// Yes, TLS is required
+// We get the certificates for https
 const serverConfig = {
 	key: fs.readFileSync('key.pem'),
 	cert: fs.readFileSync('cert.pem'),
 };
 
+// Send the user to index.html when connecting
 app.get('/', function(request, response, next) {
 	console.log('request received: ' + request.url);
 	response.sendFile(path.join(__dirname, '../client/', 'index.html'));
 });
 
+// Tell the client where to look for ressources such as css and js files
 app.use(express.static('client'));
 
+// We create the https server and tells him to listen on port 8080
 const httpsServer = https.createServer(serverConfig, app);
 httpsServer.listen(8080, '0.0.0.0');
 
@@ -38,12 +41,14 @@ io.sockets.on('connection', function(socket) {
 		socket.emit('log', array);
 	}
 
+	// Called when the client send a message to the server
 	socket.on('message', function(message) {
 		log('Client said: ', message);
 		// for a real app, would be room-only (not broadcast)
 		socket.broadcast.emit('message', message);
 	});
 
+	// Client asked to create or join a room
 	socket.on('create or join', function(room) {
 		log('Received request to create or join room ' + room);
 
@@ -68,6 +73,7 @@ io.sockets.on('connection', function(socket) {
 		}
 	});
 
+	// ???
 	socket.on('ipaddr', function() {
 		var ifaces = os.networkInterfaces();
 		for (var dev in ifaces) {
@@ -81,13 +87,16 @@ io.sockets.on('connection', function(socket) {
 });
 
 
+// ----------------------------------------------------------------------------------------
+
 const rclnodejs = require('../../rclnodejs/index.js');
 
+// We initiate rclnodejs and create a node which will subscribe to call_button_state
 rclnodejs.init().then(() => {
-	const node = rclnodejs.createNode('subscription_example_node');
+	const node = rclnodejs.createNode('sub_button_state_node');
 
 	node.createSubscription('std_msgs/msg/String', 'call_button_state', (msg) => {
-		console.log(`Received message: ${typeof msg}`, msg);
+		console.log(`Received message : ${typeof msg}`, msg);
 		io.emit('message', String(msg.data));
 	});
 

@@ -18,7 +18,17 @@ const serverConfig = {
 // Send the user to index.html when connecting
 app.get('/', function(request, response, next) {
 	console.log('request received: ' + request.url);
-	response.sendFile(path.join(__dirname, '../client/', 'index.html'));
+	response.sendFile(path.join(__dirname, '../client/', 'login.html'));
+});
+
+app.get('/nurse', function(request, response, next) {
+    console.log('request received: ' + request.url);
+    response.sendFile(path.join(__dirname, '../client/', 'nurse.html'));
+});
+
+app.get('/patient', function(request, response, next) {
+    console.log('request received: ' + request.url);
+    response.sendFile(path.join(__dirname, '../client/', 'patient.html'));
 });
 
 // Tell the client where to look for ressources such as css and js files

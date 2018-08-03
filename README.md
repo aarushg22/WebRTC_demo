@@ -10,13 +10,22 @@ The code for recording has been taking from the webrtc samples [here](https://gi
 
 #### Running the Demo
 
-To install dependencies (such as /socket.io/socket.io.js), run the following from the command line terminal, in your work directory:
+Just clone the package :
+
+`git clone https://github.com/MarcTestier/WebRTC_demo.git`
+
+Checkout to the branch you want : 
+`cd WebRTC_demo`
+`git checkout patient-activate-button`
+
+And from the command line terminal, run the following command in the work directory:
+
+`node server/index.js`
+
+You might (or might not) need to install dependencies (such as /socket.io/socket.io.js), run the following from the command line terminal, both in `work/WebRTC_APP` and in `work/rclnodejs` directory:
 
 `npm install`
 
-From the command line terminal, run the following command in the work directory:
-
-`node server/index.js`
 
 We now use https and secure websockets (wss) but since we are still on a local network, we can't get real certificates so we have to use self-made certificates. The problem is that browsers don't like self-made certificates so we'll get a warning when trying to connect. We need to add exceptions to be able to connect to the nodejs server.
 

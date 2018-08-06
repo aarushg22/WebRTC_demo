@@ -308,8 +308,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = cd $(srcdir); /usr/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/home/m-a/rclnodejs/build/config.gypi -I/usr/lib/node_modules/npm/node_modules/node-gyp/addon.gypi -I/home/m-a/.node-gyp/8.11.3/include/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/m-a/.node-gyp/8.11.3" "-Dnode_gyp_dir=/usr/lib/node_modules/npm/node_modules/node-gyp" "-Dnode_lib_file=/home/m-a/.node-gyp/8.11.3/<(target_arch)/node.lib" "-Dmodule_root_dir=/home/m-a/rclnodejs" "-Dnode_engine=v8" binding.gyp
-Makefile: $(srcdir)/../.node-gyp/8.11.3/include/node/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../usr/lib/node_modules/npm/node_modules/node-gyp/addon.gypi
+cmd_regen_makefile = cd $(srcdir); /usr/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/home/m-a/WebRTC/WebRTC_demo/rclnodejs/build/config.gypi -I/usr/lib/node_modules/npm/node_modules/node-gyp/addon.gypi -I/home/m-a/.node-gyp/8.11.3/include/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/m-a/.node-gyp/8.11.3" "-Dnode_gyp_dir=/usr/lib/node_modules/npm/node_modules/node-gyp" "-Dnode_lib_file=/home/m-a/.node-gyp/8.11.3/<(target_arch)/node.lib" "-Dmodule_root_dir=/home/m-a/WebRTC/WebRTC_demo/rclnodejs" "-Dnode_engine=v8" binding.gyp
+Makefile: $(srcdir)/../../../.node-gyp/8.11.3/include/node/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../usr/lib/node_modules/npm/node_modules/node-gyp/addon.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

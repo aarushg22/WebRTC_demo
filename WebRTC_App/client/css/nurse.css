@@ -1,0 +1,21 @@
+body {
+    font-family: sans-serif;
+}
+
+video {
+    max-width: 100%;
+    width: 320px;
+}
+
+.videoContainer {
+    width: 50%;
+    margin-right: 40px;
+}
+
+#videos {
+    display: flex;
+}
+
+#remoteVideo {
+    margin-right: 900px;
+}

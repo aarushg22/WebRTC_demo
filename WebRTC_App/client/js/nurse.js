@@ -27,6 +27,7 @@ var sdpConstraints = {
 /////////////////////////////////////////////
 
 var room = 'foo';
+var user_type = "N";
 
 var socket = io.connect();
 
@@ -92,12 +93,14 @@ socket.on('message', function(message) {
         var msg = message.split(" ");
         if(msg[0] === "bed_0_button"){
             console.log('Patient pressed the alert button : ', message);
-            if(msg[msg.length-1]==='True'){
-                callButton.disabled = false;
-                document.getElementById('patientstatus').innerHTML="Patient #XX status : Active";
-            } else {
-                callButton.disabled = true;
-                document.getElementById('patientstatus').innerHTML="Patient #XX status : Inactive";
+            if(user_type==='N') {
+                if(msg[msg.length-1]==='True'){
+                    callButton.disabled = false;
+                    document.getElementById('patientstatus').innerHTML="Patient #XX status : Active";
+                } else {
+                    callButton.disabled = true;
+                    document.getElementById('patientstatus').innerHTML="Patient #XX status : Inactive";
+                }
             }
         }
     }
@@ -182,12 +185,6 @@ hangupButton.addEventListener('click', () => {
     hangupButton.disabled=true;
     stop();
 });
-
-
-
-document.getElementById("localConsole").innerHTML ="Nurse console";
-document.getElementById("remoteConsole").innerHTML ="Patient Bed #X";
-document.getElementById('patientstatus').innerHTML="Patient #XX status : Inactive";
 
 
 function handleDataAvailable(event) {
@@ -288,7 +285,8 @@ function maybeStart() {
         createPeerConnection();
         pc.addStream(localStream);
         isStarted = true;
-        if (isInitiator ){
+        console.log('isInitiator user_type', isInitiator, user_type);
+        if (isInitiator ){//|| user_type==='P' ) {
             doCall();
         }
     }

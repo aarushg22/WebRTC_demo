@@ -18,21 +18,11 @@ const serverConfig = {
 // Send the user to index.html when connecting
 app.get('/', function(request, response, next) {
 	console.log('request received: ' + request.url);
-	response.sendFile(path.join(__dirname, '../client/', 'login.html'));
-});
-
-app.get('/nurse', function(request, response, next) {
-    console.log('request received: ' + request.url);
-    response.sendFile(path.join(__dirname, '../client/', 'nurse.html'));
-});
-
-app.get('/patient', function(request, response, next) {
-    console.log('request received: ' + request.url);
-    response.sendFile(path.join(__dirname, '../client/', 'patient.html'));
+	response.sendFile(path.join(__dirname, '../old_client/', 'index.html'));
 });
 
 // Tell the client where to look for ressources such as css and js files
-app.use(express.static('client'));
+app.use(express.static('old_client'));
 
 // We create the https server and tells him to listen on port 8080
 const httpsServer = https.createServer(serverConfig, app);

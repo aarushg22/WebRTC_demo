@@ -10,16 +10,15 @@
 
         <div id="videos">
             <div class="videoContainer">
-                <p id="localConsole"></p>
+                <p id="localConsole">Patient Bed #X</p>
                 <video id="localVideo" autoplay muted></video>
-
             </div>
             <div class="videoContainer">
-                <p id="remoteConsole"></p>
+                <p id="remoteConsole">Nurse console</p>
                 <video id="remoteVideo" autoplay></video>
-                <p id="patientstatus"></p>
             </div>
         </div>
+
 
         <div id="buttons">
             <button id="call" disabled>Call</button>
@@ -38,6 +37,8 @@
             </div>
         </div>
 
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://static.robotwebtools.org/roslibjs/current/roslib.js"></script>
         <script type="text/javascript" src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
         <script type="text/javascript" src="/socket.io/socket.io.js"></script>

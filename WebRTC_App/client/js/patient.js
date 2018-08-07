@@ -27,6 +27,7 @@ var sdpConstraints = {
 /////////////////////////////////////////////
 
 var room = 'foo';
+var user_type = "P";
 
 var socket = io.connect();
 
@@ -91,7 +92,16 @@ socket.on('message', function(message) {
     } else {
         var msg = message.split(" ");
         if(msg[0] === "bed_0_button"){
-            console.log('Patient pressed the alert button, but we don\'t care... : ', message);
+            console.log('Patient pressed the alert button : ', message);
+            if(user_type==='N') {
+                if(msg[msg.length-1]==='True'){
+                    callButton.disabled = false;
+                    document.getElementById('patientstatus').innerHTML="Patient #XX status : Active";
+                } else {
+                    callButton.disabled = true;
+                    document.getElementById('patientstatus').innerHTML="Patient #XX status : Inactive";
+                }
+            }
         }
     }
 });
@@ -176,12 +186,6 @@ hangupButton.addEventListener('click', () => {
     stop();
 });
 
-
-callButton.disabled = true;
-document.getElementById("localConsole").innerHTML ="Patient Bed #X";
-document.getElementById("remoteConsole").innerHTML ="Nurse console";
-
-
 function handleDataAvailable(event) {
     if (event.data && event.data.size > 0) {
         recordedBlobs.push(event.data);
@@ -253,6 +257,12 @@ function gotStream(stream) {
     console.log('Adding local stream.');
     localStream = stream;
     localVideo.srcObject = stream;
+    //sendMessage('got user media');
+    //if (user_type === 'P') {
+    //  if (isInitiator) {
+    //    maybeStart();
+    //  }
+    //}
 }
 
 var constraints = {
@@ -274,8 +284,8 @@ function maybeStart() {
         createPeerConnection();
         pc.addStream(localStream);
         isStarted = true;
-        console.log('isInitiator', isInitiator);
-        if (isInitiator ){
+        console.log('isInitiator user_type', isInitiator, user_type);
+        if (isInitiator ){//|| user_type==='P' ) {
             doCall();
         }
     }

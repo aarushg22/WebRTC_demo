@@ -18,13 +18,12 @@ Checkout to the branch you want :
 `cd WebRTC_demo`
 `git checkout patient-activate-button`
 
-And from the command line terminal, run the following command in the work directory:
-
-`node server/index.js`
-
-You might (or might not) need to install dependencies (such as /socket.io/socket.io.js), run the following from the command line terminal, both in `work/WebRTC_APP` and in `work/rclnodejs` directory:
+You might (or might not) need to install dependencies (such as /socket.io/socket.io.js), run the following from the command line terminal, both in `WebRTC_demo/WebRTC_APP` and in `WebRTC_demo/rclnodejs` directory:
 
 `npm install`
+
+Now go to the WebRTC_App folder and run the nodejs server :
+`node server/index.js`
 
 You can simulate the physical button simply by publishing yourself on the call_button_state topic :
 

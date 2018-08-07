@@ -183,7 +183,7 @@ callButton.addEventListener('click', () => {
 const hangupButton = document.querySelector('button#hangup');
 hangupButton.addEventListener('click', () => {
     hangupButton.disabled=true;
-    stop();
+    hangup();
 });
 
 
@@ -407,7 +407,10 @@ function handleRemoteHangup() {
 }
 
 function stop() {
+    console.log('Stop.');
     isStarted = false;
+    remoteVideo.srcObject.getTracks().forEach(track => track.stop());
+    remoteVideo.srcObject = null;
     pc.close();
-    pc = null;
+    createPeerConnection();
 }

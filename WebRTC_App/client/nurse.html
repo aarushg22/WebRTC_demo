@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Patient UI</title>
+        <title>Nurse Page</title>
         <link rel="stylesheet" href="css/nurse.css" />
     </head>
     <body>
@@ -16,6 +16,7 @@
             <div class="videoContainer">
                 <p id="remoteConsole">Patient Bed #X</p>
                 <video id="remoteVideo" autoplay></video>
+                <img src="images/nurse_alert.png" id="nurseAlertImg" height="42" width="42" style="display: none;">
                 <p id="patientstatus">Patient #XX status : Inactive</p>
             </div>
         </div>
@@ -45,6 +46,7 @@
         <script type="text/javascript" src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
         <script type="text/javascript" src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
         <script type="text/javascript" src="js/nurse.js"></script>
     </body>
 </html>

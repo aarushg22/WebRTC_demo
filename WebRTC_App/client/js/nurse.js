@@ -7,6 +7,7 @@ var localStream;
 var pc;
 var remoteStream;
 var turnReady;
+var patientActive = false;
 
 
 var peerConnectionConfig = {
@@ -95,11 +96,17 @@ socket.on('message', function(message) {
             console.log('Patient pressed the alert button : ', message);
             if(user_type==='N') {
                 if(msg[msg.length-1]==='True'){
-                    callButton.disabled = false;
+                    if(hangupButton.disabled) {
+                        callButton.disabled = false;
+                    }
                     document.getElementById('patientstatus').innerHTML="Patient #XX status : Active";
+                    document.getElementById('nurseAlertImg').style.display = "block";
+                    patientActive = true;
                 } else {
                     callButton.disabled = true;
                     document.getElementById('patientstatus').innerHTML="Patient #XX status : Inactive";
+                    document.getElementById('nurseAlertImg').style.display = "none";
+                    patientActive = false;
                 }
             }
         }
@@ -183,6 +190,9 @@ callButton.addEventListener('click', () => {
 const hangupButton = document.querySelector('button#hangup');
 hangupButton.addEventListener('click', () => {
     hangupButton.disabled=true;
+    if(patientActive){
+        callButton.disabled=false;
+    }
     hangup();
 });
 

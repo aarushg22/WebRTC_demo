@@ -4,31 +4,42 @@
 
 You can download and install Node.js from [this link](https://nodejs.org/en/download/) or via your preffered package manager.
 
-The rosbridge_server package is required to publish Ros messages via JavaScript. It can be founf in the [rosbridge_suite here](https://github.com/RobotWebTools/rosbridge_suite).
-
 This code has been extracted from the google codelabs tutorial which can be found [here](https://codelabs.developers.google.com/codelabs/webrtc-web/#0)
 
 The code for recording has been taking from the webrtc samples [here](https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/record)
 
 #### Running the Demo
 
-To install dependencies (such as /socket.io/socket.io.js), run the following from the command line terminal, in your work directory:
+Just clone the package :
+
+`git clone https://github.com/MarcTestier/WebRTC_demo.git`
+
+Checkout to the branch you want : 
+`cd WebRTC_demo`
+`git checkout patient-activate-button`
+
+You might (or might not) need to install dependencies (such as /socket.io/socket.io.js), run the following from the command line terminal, both in `WebRTC_demo/WebRTC_APP` and in `WebRTC_demo/rclnodejs` directory:
 
 `npm install`
 
-From the command line terminal, run the following command in the work directory:
+Now go to the WebRTC_App folder and run the nodejs server :
+`node server/index.js`
 
-`node index.js`
+You can simulate the physical button simply by publishing yourself on the call_button_state topic :
 
-To publish ros messages via roslibjs we need to run rosbridge_server, hence first start roscore and then in a new terminal do:
+`ros2 topic pub -1 /call_button_state std_msgs/String "data: bed_0_button True"`
 
-`roslaunch rosbridge_server rosbridge_websocket.launch`
+and
 
-Note : The Activate message is published on the topic `/activate_status`.
+`ros2 topic pub -1 /call_button_state std_msgs/String "data: bed_0_button False"`
 
-Now to finally run the webpage, from your browser, open localhost:8080.
+#### Note on https
 
-Open `localhost:8080` again, in a new tab or window. For a different PC on the same network, open the `<SERVER_IP>:8080`, where SERVER_IP is the IP of the PC running the Node.js server. One video element will display the local stream from getUserMedia()and the other will show the 'remote' video streamed via RTCPeerconnection.
+We now use https and secure websockets (wss) but since we are still on a local network, we can't get real certificates so we have to use self-made certificates. The problem is that browsers don't like self-made certificates so we'll get a warning when trying to connect. We need to add exceptions to be able to connect to the nodejs server.
+
+From your browser, open `https://localhost:8080`, if it's the first time you connect, you'll receive a warning, depending on the browser, you usually have to go to "Advance" and "Add an exception" or "Proceed to the unsafe website".
+
+Open `https://localhost:8080` again, in a new tab or window or even on your phone. For a different PC/phone on the same network, replace `localhost` to the IP of the PC running the Node.js server. One video element will display the local stream from getUserMedia()and the other will show the 'remote' video streamed via RTCPeerconnection.
 
 #### Recording
 

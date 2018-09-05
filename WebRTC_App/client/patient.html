@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Patient Page</title>
+        <link rel="stylesheet" href="css/patient.css" />
+    </head>
+    <body>
+        <h2>Patient page</h2>
+
+        <div id="videos">
+            <div class="videoContainer">
+                <p id="localConsole">Patient Bed #X</p>
+                <video id="localVideo" autoplay muted></video>
+            </div>
+            <div class="videoContainer">
+                <p id="remoteConsole">Nurse console</p>
+                <video id="remoteVideo" autoplay></video>
+            </div>
+        </div>
+
+
+        <div id="buttons">
+            <button id="call" disabled>Call</button>
+            <button id="hangup" disabled>Hang Up</button>
+        </div>
+
+        <div id="container">
+            <h3><span>MediaRecorder</span></h3>
+
+            <video id="recorded" loop controls></video>
+
+            <div>
+                <button id="record" disabled>Start Recording</button>
+                <button id="play" disabled>Play</button>
+                <button id="download" disabled>Download</button>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://static.robotwebtools.org/roslibjs/current/roslib.js"></script>
+        <script type="text/javascript" src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+        <script type="text/javascript" src="js/patient.js"></script>
+    </body>
+</html>
